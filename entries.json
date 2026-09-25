@@ -38,6 +38,19 @@
   "refs": ["Abraham Wald — A Reprint of “A Method of Estimating Plane Vulnerability Based on Damage of Survivors” | Center for Naval Analyses — Wald's 1943 work | Marc Mangel & Francisco J. Samaniego — “Abraham Wald's Work on Aircraft Survivability” | Journal of the American Statistical Association, 79(386), 259–267 (1984). | Journal article — Taylor & Francis | American Statistical Association — Abraham Wald's work and statistical history | American Statistical Association — Abraham Wald | Society for Industrial and Applied Mathematics — discussion of Wald's aircraft-survivability example | SIAM — Everyday Problems “Shot Through with Mathematics”"]
 },
   {
+  "id": "can-you-untangle-a-knot",
+  "section": "article",
+  "title": "Can You Untangle A Knot?",
+  "date": "2026-09-25",
+  "teaser": "A mathematical exploration of knot theory, beginning with the question of when two tangled loops are considered the same. The article introduces knot diagrams, Reidemeister moves, knot invariants, crossing numbers, and the Alexander polynomial to show how mathematics can distinguish objects that may look deceptively similar.",
+  "author": "Nour Al-Zahraa Karnib",
+  "field": "Math Theory",
+  "instagram": "nouralzahraakarnib_3.14",
+  "level": "Basic understanding of algebra, equations, and simple mathematical reasoning is helpful.",
+  "pdf": "pdfs/CanYouUntangleAKnotArticle.pdf",
+  "refs": ["The Knot Book: An Elementary Introduction to the Mathematical Theory of Knots — Colin C. Adams | https://bookstore.ams.org/mbk-114/ | Knot Theory — Charles Livingston | https://bookstore.ams.org/stml-24/ | Introduction to Knot Theory — Richard H. Crowell and Ralph H. Fox | https://link.springer.com/book/10.1007/978-1-4612-9935-6 | An Introduction to Knot Theory — W. B. Raymond Lickorish | https://link.springer.com/book/10.1007/978-1-4612-0691-0 | Knot Crossing Number — Wolfram MathWorld | https://mathworld.wolfram.com/KnotCrossingNumber.html | Alexander Polynomial — Wolfram MathWorld | https://mathworld.wolfram.com/AlexanderPolynomial.html | Knot Atlas — Alexander-Conway Polynomial | Knot Atlas — Alexander-Conway Polynomial"]
+},
+  {
   "id": "all-nuclear-weapons-explode",
   "section": "anecdote",
   "title": "All Nuclear Weapons Explode!",
