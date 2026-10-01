@@ -1,4 +1,17 @@
 [{
+  "id": "your-brain-is-lying-to-you",
+  "section": "community",
+  "title": "Your Brain Is Lying to You!",
+  "date": "2026-10-1",
+  "teaser": "Your eyes have a literal hole in them, and your vision skips like a broken film reel dozens of times a second, yet you never notice either one. This piece shows how your brain edits, predicts, and fills in reality instead of simply recording it.",
+  "author": "Zainab Salami",
+  "field": "Biology",
+  "instagram": "zainab_salami_",
+  "level": "School Education.",
+  "pdf": "pdfs/YourBrainIsLyingToYouCommunity.pdf",
+  "refs": ["Ramachandran, V. S., & Gregory, R. L. (1991). Perceptual filling in of artificially induced scotomas in human vision. Nature, 350(6320), 699–702. | Ross, J., Morrone, M. C., Goldberg, M. E., & Burr, D. C. (2001). Changes in visual perception at the time of saccades | Knill, D. C., & Pouget, A. (2004). The Bayesian brain: The role of uncertainty in neural coding and computation. Trends in Neurosciences | Friston, K. (2010). The free-energy principle: A unified brain theory? Nature Reviews Neuroscience"]
+},
+  {
   "id": "cant-have-nice-things",
   "section": "anecdote",
   "title": "Why Can't Have Nice Things?",
