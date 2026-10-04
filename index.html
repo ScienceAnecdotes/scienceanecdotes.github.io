@@ -155,6 +155,24 @@
     border-color:var(--blue);
     color:var(--white);
   }
+    .search-modes{ flex-wrap:wrap; justify-content:center; }
+  .sort-btn{
+    background:var(--white);
+    border:1.5px solid var(--dark-blue);
+    color:var(--dark-blue);
+    border-radius:999px;
+    padding:6px 16px;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:-0.03em;
+    cursor:pointer;
+  }
+  .sort-btn:hover{ border-color:var(--blue); color:var(--blue); }
+  .sort-btn.is-active{
+    background:var(--dark-blue);
+    border-color:var(--dark-blue);
+    color:var(--white);
+  }
 
   /* ---------- Grid / Cards ---------- */
   .grid{
@@ -209,6 +227,15 @@
     font-style:italic;
     color:var(--blue);
   }
+    .card-likes{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-size:12.5px;
+    color:var(--dark-blue);
+    margin-top:1px;
+  }
+  .card-likes svg{ width:14px; height:14px; fill:var(--dark-blue); flex:none; }
   .empty-state{
     text-align:center;
     color:var(--blue);
@@ -462,6 +489,38 @@
     text-decoration:none;
   }
   .download-btn:hover{background:#0e3350;}
+  .action-wrap{ max-width:390px; margin:8px auto 30px; }
+  .action-row{ display:flex; align-items:stretch; justify-content:center; gap:10px; }
+  .action-row .download-btn{ margin:0; flex:1; width:auto; max-width:280px; }
+  .like-btn{
+    flex:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    min-width:84px;
+    padding:0 16px;
+    background:var(--white);
+    border:1.5px solid var(--dark-blue);
+    border-radius:10px;
+    color:var(--dark-blue);
+    font-size:14px;
+    cursor:pointer;
+    transition:background .15s ease, transform .1s ease;
+  }
+  .like-btn svg{ width:18px; height:18px; fill:none; stroke:var(--dark-blue); stroke-width:2; }
+  .like-btn:hover{ background:var(--light-blue); }
+  .like-btn:active{ transform:scale(0.97); }
+  .like-btn.is-liked{ background:var(--light-blue); }
+  .like-btn.is-liked svg{ fill:var(--dark-blue); }
+  .like-btn:disabled{ opacity:0.6; cursor:default; }
+  .like-msg{
+    margin:10px 0 0;
+    text-align:center;
+    font-size:12.5px;
+    line-height:1.45;
+    color:var(--blue);
+  }
   .d-refs a{ color:var(--blue); text-decoration:underline; }
   .d-refs ul{ margin:6px 0 0; padding-left:18px; }
   .d-refs li{ margin-bottom:4px; }
@@ -562,6 +621,7 @@
           <button class="search-mode" data-mode="author">Author</button>
           <button class="search-mode is-active" data-mode="title">Title</button>
           <button class="search-mode" data-mode="field">Field</button>
+          <button class="sort-btn" id="sort-btn" type="button">Sort: Newest</button>
         </div>
       </div>
       <div class="grid" id="grid"></div>
@@ -655,6 +715,9 @@
     <h4 class="policy-h4">What stays with us</h4>
     <p>Your email, age, country, your reviewer's email, and the short note about your own background are never published. We keep them so we can reach you about your submission, confirm details with your reviewer, and, if you're open to it, invite you to future opportunities on the page. We don't sell or hand this information to anyone outside the team running Science Anecdotes.</p>
 
+    <h4 class="policy-h4">Likes and Google sign in</h4>
+    <p>You can like a work by pressing the heart. At that moment we ask you to sign in with Google, so that each account can like a work only once. Reading the site never needs an account. Signing in shares your email and a unique account ID with Google Firebase, the service that stores likes for us. Each like we store holds only the work's ID and an anonymous account ID, so no like is shown next to your name or email, and only the total is public. The sign in service keeps the account's email in a user list that only the team can see, and we never sell or share it.</p>
+
     <h4 class="policy-h4">How long we keep it</h4>
     <p>We hold on to submission details for as long as your work stays on the site, plus a reasonable window afterward in case a removal or correction comes up. If you'd like your information deleted sooner, email us and we'll take care of it.</p>
 
@@ -731,6 +794,10 @@
 <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 </script>
+  
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <script>
 (function(){
@@ -767,9 +834,30 @@
   const SUBMISSION_EMAIL = 'science.anecdotes.lb@gmail.com';
   const DATA_URL = 'entries.json';
 
+    const FIREBASE_CONFIG = {
+    apiKey: 'AIzaSyDYFS_7cLM9Togcq_IqPGAuwygxEbpp3aI',
+    authDomain: 'data-base-664a6.firebaseapp.com',
+    projectId: 'data-base-664a6',
+    appId: '1:824577890703:web:11141ad9f0d2ee945a53fa'
+  };
+  const LIKES_CACHE_KEY = 'sa-likes-v1';
+  const LIKES_CACHE_MS = 5 * 60 * 1000;
+
+  let auth = null, db = null;
+  try {
+    firebase.initializeApp(FIREBASE_CONFIG);
+    auth = firebase.auth();
+    db = firebase.firestore();
+  } catch (err){ console.error('Likes unavailable', err); }
+
+  let LIKES = {};            // work id -> like count
+  let likesFetchedAt = 0;
+  let myLike = null;         // true / false for the open work, null while unknown
+  let currentWorkId = null;
+
   let DATA = [];
 
-  const state = { tab:'anecdote', query:'', searchMode:'title', visible:PAGE_SIZE };
+  const state = { tab:'anecdote', query:'', searchMode:'title', sort:'date', visible:PAGE_SIZE };
   const SEARCH_PLACEHOLDERS = { author:'Search by author…', title:'Search by title…', field:'Search by field…' };
 
   const tabbar = document.getElementById('tabbar');
@@ -839,7 +927,13 @@
   function currentEntries(){
     let entries = DATA.filter(e => e.section === state.tab)
                        .slice()
-                       .sort((a,b) => new Date(b.date) - new Date(a.date));
+                       .sort((a,b) => {
+                         if (state.sort === 'likes'){
+                           const diff = likeCount(b.id) - likeCount(a.id);
+                           if (diff) return diff;
+                         }
+                         return new Date(b.date) - new Date(a.date);
+                       });
     const q = state.query.trim().toLowerCase();
     if (q){
       const isMatch = e => searchField(e).toLowerCase().includes(q);
@@ -866,6 +960,7 @@
         <div class="card-meta"><span>${typeLabel(e.section)}</span><span>&middot;</span><span>${formatDate(e.date)}</span></div>
         <div class="card-teaser">${escapeHtml(e.teaser)}</div>
         <div class="card-credit">Shared by ${escapeHtml(e.author)}${e.instagram ? ' at @' + escapeHtml(e.instagram) : ''}</div>
+        <div class="card-likes">${heartSvg()}<span>${likeCount(e.id)}</span></div>
       </button>
     `).join('');
 
@@ -880,6 +975,7 @@
     state.tab = tab;
     state.query = '';
     state.searchMode = 'title';
+    state.sort = 'date'; updateSortBtn();
     state.visible = PAGE_SIZE;
     searchInput.value = '';
     searchInput.placeholder = SEARCH_PLACEHOLDERS.title;
@@ -921,6 +1017,18 @@
 
   showMoreBtn.addEventListener('click', () => {
     state.visible += PAGE_SIZE;
+    renderGrid();
+  });
+  const sortBtn = document.getElementById('sort-btn');
+  function updateSortBtn(){
+    const byLikes = state.sort === 'likes';
+    sortBtn.textContent = byLikes ? 'Sort: Most liked' : 'Sort: Newest';
+    sortBtn.classList.toggle('is-active', byLikes);
+  }
+  sortBtn.addEventListener('click', () => {
+    state.sort = state.sort === 'likes' ? 'date' : 'likes';
+    state.visible = PAGE_SIZE;
+    updateSortBtn();
     renderGrid();
   });
 
@@ -1027,6 +1135,114 @@
       window.open(url, '_blank');
     }
   }
+  /* ---------- Likes: Google sign-in + Firestore ---------- */
+  function heartSvg(){
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><path stroke-linejoin="round" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+  }
+
+  function likeCount(id){ return LIKES[id] || 0; }
+
+  function saveLikesCache(){
+    try { sessionStorage.setItem(LIKES_CACHE_KEY, JSON.stringify({ t: likesFetchedAt, counts: LIKES })); } catch (_) {}
+  }
+
+  // One read per work that has likes, cached for 5 minutes per visitor session
+  // so the free daily read quota stretches a long way.
+  async function loadLikeCounts(){
+    if (!db) return;
+    try {
+      const cached = JSON.parse(sessionStorage.getItem(LIKES_CACHE_KEY) || 'null');
+      if (cached && Date.now() - cached.t < LIKES_CACHE_MS){
+        LIKES = cached.counts || {};
+        likesFetchedAt = cached.t;
+        return;
+      }
+    } catch (_) {}
+    try {
+      const snap = await db.collection('counts').get();
+      const counts = {};
+      snap.forEach(d => { counts[d.id] = d.data().n || 0; });
+      LIKES = counts;
+      likesFetchedAt = Date.now();
+      saveLikesCache();
+    } catch (err){ console.error('Could not load likes', err); }
+  }
+
+  function showLikeMsg(text){
+    const el = document.getElementById('like-msg');
+    if (!el) return;
+    el.textContent = text || '';
+    el.hidden = !text;
+  }
+
+  function updateLikeButton(){
+    const btn = document.getElementById('like-btn');
+    if (!btn || !currentWorkId) return;
+    btn.hidden = !db;
+    btn.classList.toggle('is-liked', myLike === true);
+    btn.setAttribute('aria-pressed', myLike === true ? 'true' : 'false');
+    document.getElementById('like-count').textContent = likeCount(currentWorkId);
+  }
+
+  async function loadMyLike(id){
+    if (!db) return;
+    if (!auth.currentUser){ myLike = false; updateLikeButton(); return; }
+    try {
+      const snap = await db.collection('likes').doc(id + '_' + auth.currentUser.uid).get();
+      if (currentWorkId !== id) return;
+      myLike = snap.exists;
+      updateLikeButton();
+    } catch (err){ console.error('Could not read like state', err); }
+  }
+
+  // Firebase restores a returning visitor's sign-in a moment after load.
+  if (auth) auth.onAuthStateChanged(() => { if (currentWorkId) loadMyLike(currentWorkId); });
+
+  async function toggleLike(id){
+    if (!db) return;
+    const btn = document.getElementById('like-btn');
+    showLikeMsg('');
+
+    if (!auth.currentUser){
+      try {
+        await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      } catch (err){
+        if (err && (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request')) return;
+        showLikeMsg('Could not sign in here. If you opened this page from WhatsApp or another app, open it in your regular browser (menu, then Open in browser) and try again.');
+        return;
+      }
+    }
+    const user = auth.currentUser;
+    if (!user) return;
+
+    btn.disabled = true;
+    const likeRef = db.collection('likes').doc(id + '_' + user.uid);
+    const countRef = db.collection('counts').doc(id);
+    try {
+      const result = await db.runTransaction(async (tx) => {
+        const likeSnap = await tx.get(likeRef);
+        const countSnap = await tx.get(countRef);
+        const current = countSnap.exists ? (countSnap.data().n || 0) : 0;
+        if (likeSnap.exists){
+          tx.delete(likeRef);
+          tx.set(countRef, { n: current - 1 });
+          return { liked:false, n: current - 1 };
+        }
+        tx.set(likeRef, { workId: id, uid: user.uid });
+        tx.set(countRef, { n: current + 1 });
+        return { liked:true, n: current + 1 };
+      });
+      LIKES[id] = result.n;
+      myLike = result.liked;
+      saveLikesCache();
+      updateLikeButton();
+    } catch (err){
+      console.error('Like failed', err);
+      showLikeMsg('Could not save your like. Please try again in a moment.');
+    } finally {
+      btn.disabled = false;
+    }
+  }
 
   function renderDetail(e){
     detailTitle.textContent = e.title;
@@ -1054,7 +1270,13 @@
 
       ${pdfViewerHtml('detail-pdf')}
 
-      <button class="download-btn spartan" id="detail-download-btn">Download for Free</button>
+      <div class="action-wrap">
+        <div class="action-row">
+          <button class="download-btn spartan" id="detail-download-btn">Download for Free</button>
+          <button class="like-btn" id="like-btn" type="button" aria-label="Like this work" aria-pressed="false">${heartSvg()}<span id="like-count">0</span></button>
+        </div>
+        <div class="like-msg" id="like-msg" hidden></div>
+      </div>
 
       ${connectHtml}
       ${refsHtml}
@@ -1065,6 +1287,12 @@
     document.getElementById('detail-download-btn').addEventListener('click', () => {
       forceDownload(e.pdf, `${e.id}.pdf`);
     });
+
+    currentWorkId = e.id;
+    myLike = null;
+    updateLikeButton();
+    loadMyLike(e.id);
+    document.getElementById('like-btn').addEventListener('click', () => toggleLike(e.id));
   }
 
     function openDetail(id){
@@ -1081,6 +1309,8 @@
   }
 
     backBtn.addEventListener('click', () => {
+    currentWorkId = null;
+    renderGrid();
     detailView.hidden = true;
     appEl.hidden = false;
     window.scrollTo(0,0);
@@ -1220,10 +1450,12 @@
   // Load content from entries.json, then render. The grid renders once
   // immediately (shows the "be the first" empty state) so the page never
   // looks broken while the fetch is in flight.
+  const likesReady = loadLikeCounts();
   renderGrid();
   fetch(DATA_URL)
     .then(res => { if (!res.ok) throw new Error('fetch failed'); return res.json(); })
-    .then(data => { DATA = data; renderGrid(); openFromUrl(); })
+    .then(data => { DATA = data; renderGrid(); openFromUrl(); return likesReady; })
+    .then(() => { renderGrid(); updateLikeButton(); })
     .catch(err => { console.error('Could not load entries.json', err); });
 
 })();
