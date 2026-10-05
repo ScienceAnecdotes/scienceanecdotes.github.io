@@ -12,6 +12,19 @@
   "refs": ["Ramachandran, V. S., & Gregory, R. L. (1991). Perceptual filling in of artificially induced scotomas in human vision. Nature, 350(6320), 699–702. | Ross, J., Morrone, M. C., Goldberg, M. E., & Burr, D. C. (2001). Changes in visual perception at the time of saccades | Knill, D. C., & Pouget, A. (2004). The Bayesian brain: The role of uncertainty in neural coding and computation. Trends in Neurosciences | Friston, K. (2010). The free-energy principle: A unified brain theory? Nature Reviews Neuroscience"]
 },
   {
+  "id": "what-if-your-memories-arent-yours",
+  "section": "community",
+  "title": "What If Your Memories Aren't Yours?",
+  "date": "2026-10-05",
+  "teaser": "Every time you recall a memory, your brain doesn't replay it, it rewrites it, which means the memories you trust most may be the ones most changed by repetition. This piece uses real psychology experiments, including a study that planted a fake childhood memory in people's minds, to show why confidence and accuracy are not the same thing.",
+  "author": "Zainab Salami",
+  "field": "Biology",
+  "instagram": "zainab_salami_",
+  "level": "School Education.",
+  "pdf": "pdfs/WhatIfYourMemoriesArentYoursCommunity.pdf",
+  "refs": ["Loftus, E. F., & Palmer, J. C. (1974). Reconstruction of automobile destruction: An example of the interaction between language and memory. | Loftus, E. F. (1995). Remembering dangerously. Skeptical Inquirer(source of the lost in the mall study) | Nader, K., Schafe, G. E., & Le Doux, J. E. (2000). Fear memories require protein synthesis in the amygdala for reconsolidation after retrieval. | Neisser, U., & Harsch, N. (1992). Phantom flashbulbs: False recollections of hearing the news about Challenger. In E. Winograd & U. Neisser (Eds.), Affect and accuracy in recall (pp. 9–31). Cambridge University Press."]
+},
+  {
   "id": "cant-have-nice-things",
   "section": "anecdote",
   "title": "Why Can't Have Nice Things?",
