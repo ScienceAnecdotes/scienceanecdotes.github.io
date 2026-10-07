@@ -38,6 +38,19 @@
   "refs": ["Veritasium"]
 },
   {
+  "id": "the-curtain-that-moved",
+  "section": "community",
+  "title": "The Curtain That Moved",
+  "date": "2026-10-06",
+  "teaser": "Explanation about dark matter, how scientist first found evidence of it's existence and why it's believed to make up a large part of matter in the universe.",
+  "author": "Fatima Al-Moussawi",
+  "field": "Physics",
+  "instagram": "fatima.almoussawi1",
+  "level": "Middle School Education.",
+  "pdf": "pdfs/TheCurtainThatMovedCommunity.pdf",
+  "refs": [" NASA-Dark Matter | NASA Hubble - Dark Matter | American Physical Society - Vera Rubin and the 1970 rotation-curve paper "]
+},
+  {
   "id": "when-23-people-are-enough",
   "section": "community",
   "title": "The Birthday Problem: When 23 people Are Enough",
@@ -46,7 +59,7 @@
   "author": "Nour Al-Zahraa Karnib",
   "field": "Math",
   "instagram": "nouralzahraakarnib_3.14",
-  "level": "Basic understanding of fractions, multiplication, and probability is helpful, but no advanced mathematics is required.",
+  "level": "Middle School level.",
   "pdf": "pdfs/When23PeopleAreEnoughCommunity.pdf",
   "refs": ["1. Wolfram MathWorld — Birthday Problem at https://mathworld.wolfram.com/BirthdayProblem.html | David Aldous, UC Berkeley — STAT 134: Concepts of Probability at https://www.stat.berkeley.edu/~aldous/134/index.html | Diaconis & Mosteller — Methods for Studying Coincidences at https://www.stat.berkeley.edu/~aldous /157/Papers/diaconis_mosteller.pdf | R Documentation — Probability of Coincidences at https://www.stat.ethz.ch/R-manual/R-devel/library/stats/html/birthday.html"]
 },
