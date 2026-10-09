@@ -1,6 +1,6 @@
 [{
   "id": "your-brain-is-lying-to-you",
-  "section": "community",
+  "section": "anecdote",
   "title": "Your Brain Is Lying to You!",
   "date": "2026-10-01",
   "teaser": "Your eyes have a literal hole in them, and your vision skips like a broken film reel dozens of times a second, yet you never notice either one. This piece shows how your brain edits, predicts, and fills in reality instead of simply recording it.",
@@ -13,7 +13,7 @@
 },
   {
   "id": "what-if-your-memories-arent-yours",
-  "section": "community",
+  "section": "anecdote",
   "title": "What If Your Memories Aren't Yours?",
   "date": "2026-10-05",
   "teaser": "Every time you recall a memory, your brain doesn't replay it, it rewrites it, which means the memories you trust most may be the ones most changed by repetition. This piece uses real psychology experiments, including a study that planted a fake childhood memory in people's minds, to show why confidence and accuracy are not the same thing.",
@@ -39,7 +39,7 @@
 },
   {
   "id": "the-curtain-that-moved",
-  "section": "community",
+  "section": "anecdote",
   "title": "The Curtain That Moved",
   "date": "2026-10-06",
   "teaser": "Explanation about dark matter, how scientist first found evidence of it's existence and why it's believed to make up a large part of matter in the universe.",
@@ -52,7 +52,7 @@
 },
   {
   "id": "when-23-people-are-enough",
-  "section": "community",
+  "section": "anecdote",
   "title": "The Birthday Problem: When 23 people Are Enough",
   "date": "2026-09-18",
   "teaser": "A surprising probability problem showing that in a group of just 23 people, there is a greater than 50% chance that at least two people share the same birthday.",
@@ -65,7 +65,7 @@
 },
   {
   "id": "what-the-planes-didnt-show",
-  "section": "community",
+  "section": "anecdote",
   "title": "What the Planes Didn't Show",
   "date": "2026-09-19",
   "teaser": "A surprising story about statistician Abraham Wald and how studying the damage on surviving airplanes led to a completely different conclusion about where protection was needed. The anecdote introduces the idea of survivorship bias and shows why missing data can be just as important as the data we can see.",
@@ -118,7 +118,7 @@
 },
   {
   "id": "the-road-that-made-everyone-slower",
-  "section": "community",
+  "section": "anecdote",
   "title": "The Road That Made Everyone Slower!",
   "date": "2026-09-17",
   "teaser": "Adding a new road can sometimes make traffic worse for everyone? The anecdote explores how individually rational choices can lead to an inefficient outcome for the whole system.",
