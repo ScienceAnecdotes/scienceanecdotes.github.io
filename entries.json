@@ -25,6 +25,19 @@
   "refs": ["Loftus, E. F., & Palmer, J. C. (1974). Reconstruction of automobile destruction: An example of the interaction between language and memory. | Loftus, E. F. (1995). Remembering dangerously. Skeptical Inquirer(source of the lost in the mall study) | Nader, K., Schafe, G. E., & Le Doux, J. E. (2000). Fear memories require protein synthesis in the amygdala for reconsolidation after retrieval. | Neisser, U., & Harsch, N. (1992). Phantom flashbulbs: False recollections of hearing the news about Challenger. In E. Winograd & U. Neisser (Eds.), Affect and accuracy in recall (pp. 9–31). Cambridge University Press."]
 },
   {
+  "id": "could-your-brain-invent-a-person",
+  "section": "anecdote",
+  "title": "Could Your Brain Invent a Person?",
+  "date": "2026-10-013",
+  "teaser": "A single electrode, or even a robotic arm with a tiny timing delay, is enough to make someone feel an invisible person standing behind them. This piece explores why your sense of self is a fragile, rebuilt construction rather than a fixed fact, using real neuroscience experiments and historic survival accounts.",
+  "author": "Zainab Salami",
+  "field": "Biology",
+  "instagram": "zainab_salami_",
+  "level": "School Education.",
+  "pdf": "pdfs/CouldYourBrainInventAPersonCommunity.pdf",
+  "refs": ["Blanke, O., Landis, T., Spinelli, L., & Seeck, M. (2006). Stimulating illusory own-body perceptions. Nature, 443(7109), 287–288. | Arzy, S., Seeck, M., Ortigue, S., Spinelli, L., & Blanke, O. (2006). Induction of an illusory shadow person. Nature, 443(7109), 287. | Bora, S., Blanke, O., Faivre, N., & Bernasconi, F. (2014, or related Lausanne group papers). Robotic-induced feeling of a third person presence via sensorimotor mismatch. Current Biology, related coverage in EPFL press materials. | Geiger, J. (2009). The Third Man Factor: Surviving the Impossible. Weinstein Books. (popular-science compilation of the sensed presence cases, including Shackleton's account)"]
+},
+  {
   "id": "cant-have-nice-things",
   "section": "anecdote",
   "title": "Why Can't Have Nice Things?",
