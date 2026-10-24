@@ -64,6 +64,19 @@
   "refs": [" NASA-Dark Matter | NASA Hubble - Dark Matter | American Physical Society - Vera Rubin and the 1970 rotation-curve paper "]
 },
   {
+  "id": "the-first-digit-knows-more-than-it-should",
+  "section": "article",
+  "title": "The First Digit Knows More Than It Should",
+  "date": "2026-10-24",
+  "teaser": "Why does the number 1 appear first far more often than 9? Benford's Law reveals a surprising pattern hidden in everyday numbers and a simple logarithm explains why this strange imbalance is actually mathematical.",
+  "author": "Nour Al-Zahraa Karnib",
+  "field": "Math",
+  "instagram": "nouralzahraakarnib_3.14",
+  "level": "Basic arithmetic and percentages | Basic probability",
+  "pdf": "pdfs/TheFirstDigitKnowsMoreThanItShouldArticle.pdf",
+  "refs": ["Newcomb, S. (1881). Note on the Frequency of the Use of Digits in Natural Numbers. American Journal of Mathematics, 4, 39–40. | Benford, F. (1938). The Law of Anomalous Numbers. Proceedings of the American Philosophical Society, 78, 551–572. | Weisstein, E. W. Benford's Law. Wolfram MathWorld. | National Institute of Standards and Technology (NIST). Benford's Law. | Ralchenko, Y., & Pain, J.-C. (2024). Benford's Law in Atomic Spectra and Opacity Databases. Journal of Quantitative Spectroscopy and Radiative Transfer."]
+},
+  {
   "id": "when-23-people-are-enough",
   "section": "anecdote",
   "title": "The Birthday Problem: When 23 people Are Enough",
